@@ -20,8 +20,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Format Check
-              run: |
-                find . -name '*.tf' -type f -print0 | xargs -0 -n1 terraform fmt -check=true
+        run: |
+          find . -name '*.tf' -type f -print0 | xargs -0 -n1 terraform fmt -check=true
 
   test:
     runs-on: ubuntu-latest
