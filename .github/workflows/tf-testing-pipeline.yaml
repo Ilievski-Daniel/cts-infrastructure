@@ -17,8 +17,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Format Check
-        run: terraform fmt -check=true -recursive '*.tf'
-
+        run: terraform fmt -check=true -recursive
   test:
     runs-on: ubuntu-latest
 
