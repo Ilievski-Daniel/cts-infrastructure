@@ -1,5 +1,3 @@
-name: Terraform Pipeline
-
 on:
   push:
     branches:
@@ -17,7 +15,13 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Format Check
-        run: terraform fmt -check=true -recursive
+        run: |
+          OUTPUT=$(terraform fmt -check=true -recursive '*.tf' 2>&1)
+          echo "::set-output name=lint-output::$OUTPUT"
+          if [[ $OUTPUT == *"Error:"* ]]; then
+            exit 1
+          fi
+
   test:
     runs-on: ubuntu-latest
 
