@@ -15,12 +15,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Terraform Format Check
-        run: |
-          OUTPUT=$(terraform fmt -check=true -recursive '*.tf' 2>&1)
-          echo "::set-output name=lint-output::$OUTPUT"
-          if [[ $OUTPUT == *"Error:"* ]]; then
-            exit 1
-          fi
+              run: |
+                find . -name '*.tf' -type f -print0 | xargs -0 -n1 terraform fmt -check=true
 
   test:
     runs-on: ubuntu-latest
@@ -31,6 +27,21 @@ jobs:
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
+
+      - name: Install Google Cloud SDK
+        run: |
+          export CLOUD_SDK_REPO="cloud-sdk"
+          echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          sudo apt-get update && sudo apt-get install google-cloud-sdk -y
+
+      - name: Configure Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0.4.0
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          default_region: ${{ secrets.GCP_REGION }}
+          default_zone: ${{ vars.GCP_ZONE }}
 
       - name: Terraform Init
         run: terraform init
