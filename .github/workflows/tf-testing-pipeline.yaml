@@ -61,6 +61,8 @@ jobs:
           terraform init
 
       - name: Run Terraform Plan
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_sa_key.json
         run: terraform plan
 
       - name: Run Terraform Apply
