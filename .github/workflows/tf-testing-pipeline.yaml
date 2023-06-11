@@ -52,13 +52,13 @@ jobs:
 
       - name: Authenticate with Google Cloud SDK
         run: |
-          echo ${{ secrets.GCP_SA_KEY }} > /tmp/gcp_sa_key.json
+          echo ${{ secrets.GCP_SA_KEY }} | base64 --decode > /tmp/gcp_sa_key.json
           gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
           gcloud auth configure-docker
 
       - name: Export Google Application Credentials
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS="/tmp/gcp_sa_key.json"
+          echo "::set-env name=GOOGLE_APPLICATION_CREDENTIALS::/tmp/gcp_sa_key.json"
 
       - name: Run Terraform Init
         run: terraform init
