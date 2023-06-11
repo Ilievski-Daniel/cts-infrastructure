@@ -99,7 +99,7 @@ This job runs on an ubuntu-latest runner and performs the following steps:
 
 ### Job: deploy
 
-This job runs on an ubuntu-latest runner and depends on the successful completion of the lint job. It performs the following steps:
+This job runs on the ubuntu-latest environment and is triggered only when the lint job is successful and the branch is main.
 
 1. Checkout code: Checks out the repository code using the ```actions/checkout@v2``` action.
 
