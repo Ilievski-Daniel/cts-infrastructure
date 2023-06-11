@@ -73,6 +73,11 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_sa_key.json
         run: terraform plan
 
+      - name: Run Terraform Destroy
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_sa_key.json      
+        run: terraform destroy -auto-approve
+
       - name: Run Terraform Apply
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_sa_key.json      
