@@ -27,11 +27,18 @@ And finnaly we use Google Cloud Storage (bucket) as a Terraform backend to secur
 
 ## Steps to deploy the infrastructure:
 
-- Clone Repository: Clone the repository containing the Terraform configuration files to your local machine.
+1. Clone Repository: Clone the repository containing the Terraform configuration files to your local machine.
 
-- Initialize Terraform: Navigate to the directory where your Terraform configuration files are located using the command line. 
+    ```sh
+    git clone https://github.com/Ilievski-Daniel/cts-infrastructure.git
+    ```
+2. Change directory: Navigate to the directory where your Terraform configuration files are located using the command line. 
 
-    Run terraform init to initialize Terraform and download the required providers and modules.
+    ```sh
+    cd cts-infrastructure
+    ```
+
+3. Initialize Terraform: Run terraform init to initialize Terraform and download the required providers and modules.
 
     ```sh
     terraform init
@@ -39,7 +46,7 @@ And finnaly we use Google Cloud Storage (bucket) as a Terraform backend to secur
 
     This command sets up the backend and prepares Terraform for deployment.
 
-- Plan Deployment: Run terraform plan to generate an execution plan. 
+4. Plan Deployment: Run terraform plan to generate an execution plan. 
 
     This command analyzes the configuration and displays a summary of the changes that Terraform will apply to your infrastructure.
 
@@ -49,7 +56,7 @@ And finnaly we use Google Cloud Storage (bucket) as a Terraform backend to secur
 
     Review the plan to ensure it aligns with your expectations.
 
-- Deploy Infrastructure: Execute terraform apply to apply the changes and deploy the infrastructure described in your configuration files. 
+5. Deploy Infrastructure: Execute terraform apply to apply the changes and deploy the infrastructure described in your configuration files. 
     
     Terraform will prompt for confirmation before proceeding. Respond with 'yes' to proceed with the deployment.
 
@@ -59,7 +66,7 @@ And finnaly we use Google Cloud Storage (bucket) as a Terraform backend to secur
 
     The command will provision resources in your Google Cloud project according to your Terraform configuration.
 ---
-- Destroy Infrastructure (Optional): If you want to tear down the infrastructure provisioned by Terraform, you can use the terraform destroy command. 
+6. Destroy Infrastructure (Optional): If you want to tear down the infrastructure provisioned by Terraform, you can use the terraform destroy command. 
 
     Running this command will remove all the resources defined in your Terraform configuration files and associated with your project. 
 
