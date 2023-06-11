@@ -75,3 +75,50 @@ And finnaly we use Google Cloud Storage (bucket) as a Terraform backend to secur
     ```
 
     Terraform will prompt for confirmation before initiating the destruction. Respond with 'yes' to proceed with the infrastructure teardown.
+
+## Terraform Infrastructure Pipeline
+
+This is a GitHub Actions pipeline that automates the deployment of infrastructure using Terraform. 
+
+The pipeline consists of two jobs: <b>lint</b> and <b>deploy</b>. 
+
+The lint job checks the formatting of Terraform files, while the deploy job deploys the infrastructure if certain conditions are met.
+
+### Workflow Triggers
+The pipeline is triggered by both push and pull_request events on any branch.
+
+### Job: lint
+
+This job runs on an ubuntu-latest runner and performs the following steps:
+
+1. Checkout code: Checks out the repository code using the ```actions/checkout@v2``` action.
+
+2. Set up Terraform: Sets up the Terraform CLI using the ```hashicorp/setup-terraform@v1``` action.
+
+3. Terraform Format Check: Checks the formatting of Terraform files using the ```terraform fmt -check=true``` command.
+
+### Job: deploy
+
+This job runs on an ubuntu-latest runner and depends on the successful completion of the lint job. It performs the following steps:
+
+1. Checkout code: Checks out the repository code using the ```actions/checkout@v2``` action.
+
+2. Install Google Cloud SDK: Installs the Google Cloud SDK using the ```curl``` command and updates its components.
+
+3. Configure Google Cloud SDK: Sets up the Google Cloud SDK using the ```google-github-actions/setup-gcloud@v0.4.0``` action. 
+
+    It configures the service account key, project ID, default region, and default zone.
+
+4. Set up Terraform: Sets up the Terraform CLI using the hashicorp/```setup-terraform@v1``` action.
+
+5. Configure Google Cloud authentication: Configures the Google Cloud authentication by activating the service account and setting the environment variable GOOGLE_APPLICATION_CREDENTIALS.
+
+6. Set Google Cloud project: Sets the Google Cloud project using the ```gcloud config set project``` command.
+
+7. Run Terraform Init: Initializes the Terraform working directory using the ```terraform init``` command.
+
+8. Run Terraform Plan: Generates an execution plan for Terraform using the ```terraform plan``` command.
+
+9. Run Terraform Apply: Applies the Terraform changes using the ```terraform apply -auto-approve``` command.
+
+<b>Note:</b> Make sure to set the appropriate secrets and variables in your GitHub repository settings to successfully run this pipeline, they are also mentioned in a table in the next section of this documentation.
