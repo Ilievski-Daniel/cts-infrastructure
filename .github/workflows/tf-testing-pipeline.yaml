@@ -48,6 +48,7 @@ jobs:
         run: |
           echo "$GCP_SA_KEY" > /tmp/gcp_sa_key.json
           gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
+          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp_sa_key.json
 
       - name: Set Google Cloud project
         env:
