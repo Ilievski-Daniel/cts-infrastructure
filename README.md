@@ -121,4 +121,44 @@ This job runs on the ubuntu-latest environment and is triggered only when the li
 
 9. Run Terraform Apply: Applies the Terraform changes using the ```terraform apply -auto-approve``` command.
 
-<b>Note:</b> Make sure to set the appropriate secrets and variables in your GitHub repository settings to successfully run this pipeline, they are also mentioned in a table in the next section of this documentation.
+<b>Note:</b> Make sure to set the appropriate secrets and variables in your GitHub repository settings to successfully run this pipeline, they are also mentioned in a table in the next section named <b>Terraform Infrastructure Pipeline Configuration</b> of this documentation.
+
+## Terraform Infrastructure Pipeline Configuration
+
+### Variables
+
+To set up the Terraform Infrastructure Pipeline, you need to define the following variables:
+
+| Variable            |  Description                                              |
+|:--------------------|:----------------------------------------------------------|
+| GCP_PROJECT_ID      | Google Cloud Platform region                              |
+| GCP_REGION          | Google Kubernetes Engine (GKE) cluster name               |
+| GCP_ZONE	          | Google Cloud Platform zone                                |
+
+Make sure to provide the necessary values for these variables when configuring the Terraform Infrastructure Pipeline. 
+
+### Secrets
+
+The following secrets should be added to the GitHub repository:
+
+| Secret          |  Description                                                       |
+|:----------------|:-------------------------------------------------------------------|
+| GCP_SA_KEY      | Service account key for Google Cloud Platform authentication (JSON)|
+
+<b>The Service Account that is used for authentication:</b> It's using particular rules for that action, here is a one way command that you can run in order to apply these roles to the Service Account easily:
+
+```sh
+gcloud projects add-iam-policy-binding <project-id> \
+  --member=serviceAccount:<service-account-email> \
+  --role=roles/compute.admin \
+  --role=roles/iam.serviceAccountUser \
+  --role=roles/resourcemanager.projectIamAdmin \
+  --role=roles/container.clusterAdmin \
+  --role=roles/compute.viewer \
+  --role=roles/compute.securityAdmin \
+  --role=roles/container.developer \
+  --role=roles/iam.serviceAccountAdmin \
+  --role=roles/resourcemanager.projectIamAdmin
+```
+
+<b> Make sure to change ```<project-id>``` and ```<service-account-email>``` with your own Google Cloud values.
