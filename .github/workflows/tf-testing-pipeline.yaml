@@ -39,14 +39,6 @@ jobs:
           exec -l $SHELL
           gcloud components update
 
-      - name: Configure Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v0.4.0
-        with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: ${{ vars.GCP_PROJECT_ID }}
-          default_region: ${{ vars.GCP_REGION }}
-          default_zone: ${{ vars.GCP_ZONE }}
-
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
 
