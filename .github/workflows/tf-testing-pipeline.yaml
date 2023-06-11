@@ -35,10 +35,9 @@ jobs:
 
       - name: Install Google Cloud SDK
         run: |
-          export CLOUD_SDK_REPO="cloud-sdk"
-          echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-          sudo apt-get update && sudo apt-get install google-cloud-sdk -y
+          curl https://sdk.cloud.google.com | bash
+          exec -l $SHELL
+          gcloud components update
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
