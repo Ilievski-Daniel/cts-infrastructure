@@ -161,4 +161,7 @@ gcloud projects add-iam-policy-binding <project-id> \
   --role=roles/resourcemanager.projectIamAdmin
 ```
 
-<b> Make sure to change ```<project-id>``` and ```<service-account-email>``` with your own Google Cloud values.
+<b> Make sure to change ```<project-id>``` and ```<service-account-email>``` with your own Google Cloud values. </b>
+
+## Contact
+For any questions or inquiries, please contact: [Daniel Ilievski](https://www.linkedin.com/in/danielilievski/)
