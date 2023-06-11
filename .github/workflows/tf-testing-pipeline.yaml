@@ -50,7 +50,9 @@ jobs:
           gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
 
       - name: Set Google Cloud project
-        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: gcloud config set project $GCP_PROJECT_ID
 
       - name: Run Terraform Init
         run: terraform init
