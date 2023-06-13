@@ -11,7 +11,9 @@ There are 2 required providers that are being used:
 - Google
 - Kubernetes
 
-And finnaly we use Google Cloud Storage (bucket) as a Terraform backend to securely store and manage our infrastructure state, providing durability, scalability, accessibility, collaboration, and automation.
+Backend configuration:
+
+- We use Google Cloud Storage (bucket) as a Terraform backend to securely store and manage our infrastructure state, providing durability, scalability, accessibility, collaboration, and automation.
 
 ## Prerequisites
 
@@ -146,91 +148,89 @@ The following secrets should be added to the GitHub repository:
 | GCP_SA_KEY      | Service account key for Google Cloud Platform authentication (JSON)|
 
 
-<!-- Tell the audience that this is a one time thing.. -->
 <b>The Service Account that is used for authentication:</b> It's using particular rules for that action, here are the rules with explanation what they do:
 
-1. This command adds the role roles/compute.admin to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The compute.admin role grants full administrative access to Compute Engine resources within the project.
+<b>Required:</b> Before you run the commands change the ```<service-account-email>```, ```<project-id>``` and ```<bucket-name>``` respectively with your Google Cloud information.
+
+1. The compute.admin role grants full administrative access to Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/compute.admin 
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.admin 
     ```
 
 
-2. This command adds the role roles/iam.serviceAccountUser to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The iam.serviceAccountUser role allows the service account to impersonate other service accounts, which is useful for certain types of access delegation.
+2. The iam.serviceAccountUser role allows the service account to impersonate other service accounts, which is useful for certain types of access delegation.
 
     ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/iam.serviceAccountUser
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/iam.serviceAccountUser
     ```
 
 
-3. This command adds the role roles/resourcemanager.projectIamAdmin to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The resourcemanager.projectIamAdmin role grants full administrative access to manage IAM policies and permissions for the project.
+3. The resourcemanager.projectIamAdmin role grants full administrative access to manage IAM policies and permissions for the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/resourcemanager.projectIamAdmin
     ```
 
-4. This command adds the role roles/container.clusterAdmin to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The container.clusterAdmin role grants full administrative access to manage Kubernetes clusters within the project.
+4. The container.clusterAdmin role grants full administrative access to manage Kubernetes clusters within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/container.clusterAdmin
-    ```
-
-
-5. This command adds the role roles/compute.viewer to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The compute.viewer role grants read-only access to view Compute Engine resources within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/compute.viewer
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/container.clusterAdmin
     ```
 
 
-6. This command adds the role roles/compute.securityAdmin to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
+5. The compute.viewer role grants read-only access to view Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/compute.securityAdmin
-    ```
-7. This command adds the role roles/container.developer to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The container.developer role grants access to develop and deploy applications on Kubernetes clusters within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/container.developer
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.viewer
     ```
 
-8. This command adds the role roles/iam.serviceAccountAdmin to the service account one-by-one@cts-project-388707.iam.gserviceaccount.com in the project cts-project-388707. The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
+
+6. The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding cts-project-388707 --member serviceAccount:one-by-one@cts-project-388707.iam.gserviceaccount.com --role roles/iam.serviceAccountAdmin
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.securityAdmin
+    ```
+
+7. The container.developer role grants access to develop and deploy applications on Kubernetes clusters within the project.
+
+    ```sh
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/container.developer
+    ```
+
+8. The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
+
+    ```sh
+    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/iam.serviceAccountAdmin
     ```
 
 9. To grant the `roles/storage.objectAdmin` role to a service account on a Google Cloud Storage bucket, you can use the following command:
 
     ```sh
-    gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectAdmin gs://<your-bucket-name>
+    gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectAdmin gs://<bucket-name>
     ```
 
-CURRENTLY HARDCODED, NEEDS UPDATE AND TESTING ONCE AGAIN!
-<!-- 
-<b> Make sure to change ```<project-id>``` and ```<service-account-email>``` with your own Google Cloud values. </b> -->
-
-<!-- You would also need to run the following command: -->
-
-<!-- ```sh
-gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectViewer gs://<google-cloud-bucket-name>
-```
-
-And also run:
+After running these commands, you can run this command to check that all the roles are there for your Service Account:
 
 ```sh
-gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectCreator gs://<google-cloud-bucket-name>
-``` -->
+gcloud projects get-iam-policy <project-id> --flatten="bindings[].members" --format='table(bindings.role)' --filter="bindings.members:<service-account-email>"
+```
 
+Your result should be this:
 
+```sh
+ROLE
+roles/compute.admin
+roles/compute.securityAdmin
+roles/compute.viewer
+roles/container.clusterAdmin
+roles/container.developer
+roles/iam.serviceAccountAdmin
+roles/iam.serviceAccountUser
+roles/resourcemanager.projectIamAdmin
+```
 
-
-
-Maybe I just need this command after to allow: TESTING IS REQUIRED
-
-<!-- ```sh
-gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectAdmin gs://<your-bucket-name>
-``` -->
+<b>Note:</b> These actions about adding the roles to the Service Account is a one time action, that is required so that the Infrastructure Pipeline would be able to deploy and manage the infrastructure resources.
 
 ## Contact
 For any questions or inquiries, please contact: [Daniel Ilievski](https://www.linkedin.com/in/danielilievski/)
