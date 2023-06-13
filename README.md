@@ -178,33 +178,19 @@ The following secrets should be added to the GitHub repository:
     gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/container.clusterAdmin
     ```
 
-
-5. The compute.viewer role grants read-only access to view Compute Engine resources within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.viewer
-    ```
-
-
-6. The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
+5. The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
 
     ```sh
     gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.securityAdmin
     ```
 
-7. The container.developer role grants access to develop and deploy applications on Kubernetes clusters within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/container.developer
-    ```
-
-8. The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
+6. The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
 
     ```sh
     gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/iam.serviceAccountAdmin
     ```
 
-9. To grant the `roles/storage.objectAdmin` role to a service account on a Google Cloud Storage bucket, you can use the following command:
+7. To grant the `roles/storage.objectAdmin` role to a service account on a Google Cloud Storage bucket, you can use the following command:
 
     ```sh
     gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectAdmin gs://<bucket-name>
@@ -222,9 +208,7 @@ Your result should be this:
 ROLE
 roles/compute.admin
 roles/compute.securityAdmin
-roles/compute.viewer
 roles/container.clusterAdmin
-roles/container.developer
 roles/iam.serviceAccountAdmin
 roles/iam.serviceAccountUser
 roles/resourcemanager.projectIamAdmin
