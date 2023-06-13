@@ -155,53 +155,53 @@ The following secrets should be added to the GitHub repository:
 1. The compute.admin role grants full administrative access to Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.admin 
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/compute.admin 
     ```
 
 
 2. The iam.serviceAccountUser role allows the service account to impersonate other service accounts, which is useful for certain types of access delegation.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/iam.serviceAccountUser
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/iam.serviceAccountUser
     ```
 
 
 3. The resourcemanager.projectIamAdmin role grants full administrative access to manage IAM policies and permissions for the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/resourcemanager.projectIamAdmin
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/resourcemanager.projectIamAdmin
     ```
 
 4. The container.clusterAdmin role grants full administrative access to manage Kubernetes clusters within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/container.clusterAdmin
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/container.clusterAdmin
     ```
 
 
 5. The compute.viewer role grants read-only access to view Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.viewer
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/compute.viewer
     ```
 
 
 6. The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.securityAdmin
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/compute.securityAdmin
     ```
 
 7. The container.developer role grants access to develop and deploy applications on Kubernetes clusters within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/container.developer
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/container.developer
     ```
 
 8. The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/iam.serviceAccountAdmin
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/iam.serviceAccountAdmin
     ```
 
 9. To grant the `roles/storage.objectAdmin` role to a service account on a Google Cloud Storage bucket, you can use the following command:
