@@ -155,7 +155,7 @@ The following secrets should be added to the GitHub repository:
 1. The compute.admin role grants full administrative access to Compute Engine resources within the project.
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member <service-account-email> --role roles/compute.admin 
+    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/compute.admin 
     ```
 
 
