@@ -15,6 +15,8 @@ Backend configuration:
 
 - We use Google Cloud Storage (bucket) as a Terraform backend to securely store and manage our infrastructure state, providing durability, scalability, accessibility, collaboration, and automation.
 
+- This CTS backend infrastructure is designed with the assumption that high availability of the GKE cluster is not required. Therefore, for the purpose of simplicity and cost-effectiveness, we will deploy the Kubernetes cluster in a single region instead of multiple regions.
+
 ## Prerequisites
 
 - Terraform: Install Terraform on your local machine. You can download the latest version from the official Terraform website (https://www.terraform.io/downloads.html) and follow the installation instructions for your operating system.
