@@ -107,23 +107,21 @@ This job runs on the ubuntu-latest environment and is triggered only when the li
 
 1. Checkout code: Checks out the repository code using the ```actions/checkout@v2``` action.
 
-2. Install Google Cloud SDK: Installs the Google Cloud SDK using the ```curl``` command and updates its components.
-
-3. Configure Google Cloud SDK: Sets up the Google Cloud SDK using the ```google-github-actions/setup-gcloud@v0.4.0``` action. 
+2. Configure Google Cloud SDK: Sets up the Google Cloud SDK using the ```google-github-actions/setup-gcloud@v1``` action. 
 
     It configures the service account key, project ID, default region, and default zone.
 
-4. Set up Terraform: Sets up the Terraform CLI using the hashicorp/```setup-terraform@v1``` action.
+3. Set up Terraform: Sets up the Terraform CLI using the hashicorp/```setup-terraform@v1``` action.
 
-5. Configure Google Cloud authentication: Configures the Google Cloud authentication by activating the service account and setting the environment variable GOOGLE_APPLICATION_CREDENTIALS.
+4. Configure Google Cloud authentication: Configures the Google Cloud authentication by activating the service account and setting the environment variable GOOGLE_APPLICATION_CREDENTIALS.
 
-6. Set Google Cloud project: Sets the Google Cloud project using the ```gcloud config set project``` command.
+5. Set Google Cloud project: Sets the Google Cloud project using the ```gcloud config set project``` command.
 
-7. Run Terraform Init: Initializes the Terraform working directory using the ```terraform init``` command.
+6. Run Terraform Init: Initializes the Terraform working directory using the ```terraform init``` command.
 
-8. Run Terraform Plan: Generates an execution plan for Terraform using the ```terraform plan``` command.
+7. Run Terraform Plan: Generates an execution plan for Terraform using the ```terraform plan``` command.
 
-9. Run Terraform Apply: Applies the Terraform changes using the ```terraform apply -auto-approve``` command.
+8. Run Terraform Apply: Applies the Terraform changes using the ```terraform apply -auto-approve``` command.
 
 <b>Note:</b> Make sure to set the appropriate secrets and variables in your GitHub repository settings to successfully run this pipeline, they are also mentioned in a table in the next section named <b>Terraform Infrastructure Pipeline Configuration</b> of this documentation.
 
