@@ -33,12 +33,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Google Cloud SDK
-        run: |
-          curl https://sdk.cloud.google.com | bash
-          exec -l $SHELL
-          gcloud components update
-
       - name: Configure Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.4.0
         with:
