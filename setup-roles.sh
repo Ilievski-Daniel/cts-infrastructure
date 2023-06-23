@@ -13,9 +13,19 @@ roles=(
   "roles/iam.serviceAccountAdmin"
 )
 
+success=true
+
 for role in "${roles[@]}"
 do
-  gcloud projects add-iam-policy-binding "$project_id" --member="serviceAccount:$service_account_email" --role="$role"
+  gcloud projects add-iam-policy-binding "$project_id" --member="serviceAccount:$service_account_email" --role="$role" || success=false
 done
 
-gsutil iam ch "serviceAccount:$service_account_email:roles/storage.objectAdmin" "gs://$bucket_name"
+gsutil iam ch "serviceAccount:$service_account_email:roles/storage.objectAdmin" "gs://$bucket_name" || success=false
+
+if [ "$success" = true ]; then
+  echo "Script executed successfully!"
+else
+  echo "Script execution encountered errors."
+fi
+
+gcloud projects get-iam-policy "$project_id" --flatten="bindings[].members" --format='table(bindings.role)' --filter="bindings.members:$service_account_email"
