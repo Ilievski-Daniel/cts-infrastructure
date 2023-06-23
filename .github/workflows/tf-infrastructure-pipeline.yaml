@@ -45,16 +45,10 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - name: Run Terraform Init
-        run: |
-          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp_sa_key.json
-          terraform init
+        run: terraform init
 
       - name: Run Terraform Plan
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_sa_key.json
         run: terraform plan
 
       - name: Run Terraform Apply
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_sa_key.json      
         run: terraform apply -auto-approve
