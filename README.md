@@ -36,6 +36,7 @@ Backend configuration:
     ```sh
     git clone https://github.com/Ilievski-Daniel/cts-infrastructure.git
     ```
+
 2. Change directory: Navigate to the directory where your Terraform configuration files are located using the command line. 
 
     ```sh
@@ -69,7 +70,9 @@ Backend configuration:
     ```
 
     The command will provision resources in your Google Cloud project according to your Terraform configuration.
+
 ---
+
 6. Destroy Infrastructure (Optional): If you want to tear down the infrastructure provisioned by Terraform, you can use the terraform destroy command. 
 
     Running this command will remove all the resources defined in your Terraform configuration files and associated with your project. 
@@ -111,17 +114,15 @@ This job runs on the ubuntu-latest environment and is triggered only when the li
 
     It configures the service account key, project ID, default region, and default zone.
 
-3. Set up Terraform: Sets up the Terraform CLI using the hashicorp/```setup-terraform@v1``` action.
+3. Configure Google Cloud authentication: Configures the Google Cloud authentication by activating the service account and setting the environment variable GOOGLE_APPLICATION_CREDENTIALS.
 
-4. Configure Google Cloud authentication: Configures the Google Cloud authentication by activating the service account and setting the environment variable GOOGLE_APPLICATION_CREDENTIALS.
+4. Set up Terraform: Sets up the Terraform CLI using the hashicorp/```setup-terraform@v1``` action.
 
-5. Set Google Cloud project: Sets the Google Cloud project using the ```gcloud config set project``` command.
+5. Run Terraform Init: Initializes the Terraform working directory using the ```terraform init``` command.
 
-6. Run Terraform Init: Initializes the Terraform working directory using the ```terraform init``` command.
+6. Run Terraform Plan: Generates an execution plan for Terraform using the ```terraform plan``` command.
 
-7. Run Terraform Plan: Generates an execution plan for Terraform using the ```terraform plan``` command.
-
-8. Run Terraform Apply: Applies the Terraform changes using the ```terraform apply -auto-approve``` command.
+7. Run Terraform Apply: Applies the Terraform changes using the ```terraform apply -auto-approve``` command.
 
 <b>Note:</b> Make sure to set the appropriate secrets and variables in your GitHub repository settings to successfully run this pipeline, they are also mentioned in a table in the next section named <b>Terraform Infrastructure Pipeline Configuration</b> of this documentation.
 
