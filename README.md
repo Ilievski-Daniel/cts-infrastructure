@@ -152,51 +152,31 @@ The following secrets should be added to the GitHub repository:
 
 <b>Required:</b> Before you run the commands change the ```<service-account-email>```, ```<project-id>``` and ```<bucket-name>``` respectively with your Google Cloud information.
 
-1. The compute.admin role grants full administrative access to Compute Engine resources within the project.
+1. Command that will apply all the required roles to the service account:
+
+    Make sure that you are located where the ```setup-roles.sh``` script is located, and run it as the following:
 
     ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/compute.admin 
+    ./setup-roles.sh <project-id> <service-account-email> <bucket-name>
     ```
 
+- This script/command will bind the following roles to the Service Account:
 
-2. The iam.serviceAccountUser role allows the service account to impersonate other service accounts, which is useful for certain types of access delegation.
+    - The compute.admin role grants full administrative access to Compute Engine resources within the project.
+    
+    - The iam.serviceAccountUser role allows the service account to impersonate other service accounts, which is useful for certain types of access delegation.
 
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/iam.serviceAccountUser
-    ```
+    - The resourcemanager.projectIamAdmin role grants full administrative access to manage IAM policies and permissions for the project.
+    
+    - The container.clusterAdmin role grants full administrative access to manage Kubernetes clusters within the project.
+    
+    - The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
 
+    - The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
 
-3. The resourcemanager.projectIamAdmin role grants full administrative access to manage IAM policies and permissions for the project.
+    - The roles/storage.objectAdmin role provides administrative access to manage objects within a specific Cloud Storage bucket.
 
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/resourcemanager.projectIamAdmin
-    ```
-
-4. The container.clusterAdmin role grants full administrative access to manage Kubernetes clusters within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/container.clusterAdmin
-    ```
-
-5. The compute.securityAdmin role grants administrative access to manage security-related aspects of Compute Engine resources within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/compute.securityAdmin
-    ```
-
-6. The iam.serviceAccountAdmin role grants administrative access to manage service accounts and their keys within the project.
-
-    ```sh
-    gcloud projects add-iam-policy-binding <project-id> --member serviceAccount:<service-account-email> --role roles/iam.serviceAccountAdmin
-    ```
-
-7. To grant the `roles/storage.objectAdmin` role to a service account on a Google Cloud Storage bucket, you can use the following command:
-
-    ```sh
-    gsutil iam ch serviceAccount:<service-account-email>:roles/storage.objectAdmin gs://<bucket-name>
-    ```
-
-After running these commands, you can run this command to check that all the roles are there for your Service Account:
+2. After running the script/commands, you can run this command to check that all the roles are there for your Service Account:
 
 ```sh
 gcloud projects get-iam-policy <project-id> --flatten="bindings[].members" --format='table(bindings.role)' --filter="bindings.members:<service-account-email>"
