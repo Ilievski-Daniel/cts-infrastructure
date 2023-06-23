@@ -176,15 +176,10 @@ The following secrets should be added to the GitHub repository:
 
     - The roles/storage.objectAdmin role provides administrative access to manage objects within a specific Cloud Storage bucket.
 
-2. After running the script/commands, you can run this command to check that all the roles are there for your Service Account:
+2. After running the script/commands, your result should look like this:
 
 ```sh
-gcloud projects get-iam-policy <project-id> --flatten="bindings[].members" --format='table(bindings.role)' --filter="bindings.members:<service-account-email>"
-```
-
-Your result should be this:
-
-```sh
+Script executed successfully!
 ROLE
 roles/compute.admin
 roles/compute.securityAdmin
